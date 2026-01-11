@@ -31,9 +31,11 @@ bool dfs_cycle_undirected(const Graph& g, int u, int parent, std::vector<bool>& 
             }
         }
         // v is visited but not parent
-        if (parent != v) {
+        else if (parent != v) {
             return true;
         }
+
+
     }
 
     return false;

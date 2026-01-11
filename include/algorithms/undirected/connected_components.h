@@ -3,5 +3,10 @@
 #include <vector>
 
 
+struct ConnectedComponentResult {
+    std::vector<int> cids;
+    int components = 0;
+};
+
 // return a list of component ids
-std::vector<int> Connected_Component(const Graph& g);
+ConnectedComponentResult Connected_Component(const Graph& g);
