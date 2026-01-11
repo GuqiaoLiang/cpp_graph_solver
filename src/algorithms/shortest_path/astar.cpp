@@ -1,4 +1,4 @@
-#include "algorithms/astar.h"
+#include "algorithms/shortest_path/astar.h"
 #include <vector>
 #include <algorithm>
 #include <queue>

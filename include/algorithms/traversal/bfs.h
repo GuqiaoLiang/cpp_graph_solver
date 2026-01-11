@@ -6,4 +6,6 @@
 std::vector<int> GraphBFS(const Graph& g, int s);
 
 
+std::vector<int> DFSAll(const Graph& g);
+
 

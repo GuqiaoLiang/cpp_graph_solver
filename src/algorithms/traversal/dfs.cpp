@@ -1,4 +1,4 @@
-#include "algorithms/dfs.h"
+#include "algorithms/traversal/dfs.h"
 #include <stack>
 
 // the order of visited node
@@ -61,5 +61,21 @@ void dfs_Recurse_Helper(const Graph& g, int s, std::vector<bool>& visited, std::
 
     return;
 
+
+}
+
+// Output the preorder of the graph 
+std::vector<int> DFSAll(const Graph& g) {
+    std::vector<bool> visited(g.NumVertices(), false);
+
+    std::vector<int> res;
+
+    for (int i = 0; i < g.NumVertices(); i ++) {
+        if (! visited[i]) {
+            dfs_Recurse_Helper(g, i, visited, res);
+        }
+    }
+
+    return res;
 
 }

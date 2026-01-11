@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <memory>
 
 struct Edge {
     int to;
@@ -12,4 +13,8 @@ public:
 
     virtual int NumVertices() const = 0;
     virtual const std::vector<Edge>& Neighbors(int u) const = 0;
+
+    virtual std::unique_ptr<Graph> Clone() const = 0;
+
+    virtual bool IsDirected() const = 0; 
 };

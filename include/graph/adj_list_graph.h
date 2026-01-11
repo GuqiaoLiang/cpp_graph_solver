@@ -9,9 +9,14 @@ public:
 
     void AddEdge(int u, int v, int w = 1);
 
-    int NumVertices() const override;
+    int NumVertices() const;
 
     const std::vector<Edge>& Neighbors(int u) const override;
+
+    std::unique_ptr<Graph> Clone() const override;
+
+    bool IsDirected() const override;
+
 
 private:
     std::vector<std::vector<Edge>> adj_;

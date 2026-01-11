@@ -1,4 +1,4 @@
-#include "algorithms/bfs.h"
+#include "algorithms/traversal/bfs.h"
 #include <vector>
 #include <queue>
 

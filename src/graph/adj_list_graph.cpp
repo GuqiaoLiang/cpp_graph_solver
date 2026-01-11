@@ -16,3 +16,12 @@ int AdjListGraph::NumVertices() const {
 const std::vector<Edge>& AdjListGraph::Neighbors(int u) const {
     return adj_[u];
 }
+
+
+std::unique_ptr<Graph> AdjListGraph::Clone() const {
+    return std::make_unique<AdjListGraph>(*this); // copy ctor
+}
+
+bool AdjListGraph::IsDirected() const {
+    return directed_;
+}
