@@ -1,0 +1,20 @@
+{
+  "mode": "grid",
+  "problem": {
+    "rows": 5,
+    "cols": 5,
+    "map": [
+      "..#..",
+      ".#.#.",
+      "...#T",
+      "##...",
+      "S...."
+    ],
+    "start": [4, 0],
+    "target": [2, 4],
+    "allow_diagonal": false
+  },
+  "queries": [
+    { "type": "shortest_path", "method": "bfs" }
+  ]
+}

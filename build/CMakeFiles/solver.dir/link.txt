@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/solver.dir/src/main.cpp.o -o solver  libio.a libalgorithms.a libutils.a libtranslation.a libds.a libgraph.a 

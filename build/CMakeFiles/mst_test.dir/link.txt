@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/mst_test.dir/test/mst_test.cpp.o -o mst_test  libalgorithms.a libgraph.a libds.a 

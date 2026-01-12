@@ -1,0 +1,21 @@
+{
+  "mode": "edge_list",
+  "problem": {
+    "num_vertices": 6,
+    "directed": false,
+    "edges": [
+      [0, 1, 3],
+      [1, 2, 2],
+      [2, 3, 4],
+      [3, 1, 1],
+      [3, 4, 5],
+      [4, 5, 7]
+    ]
+  },
+  "queries": [
+    { "type": "connected_components" },
+    { "type": "contains_cycle" },
+    { "type": "mst", "method": "kruskal" },
+    { "type": "shortest_path", "source": 0, "target": 3 }
+  ]
+}

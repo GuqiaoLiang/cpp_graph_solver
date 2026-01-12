@@ -1,0 +1,32 @@
+{
+  "mode": "edge_list",
+  "results": [
+    {
+      "query": { "type": "connected_components" },
+      "result": {
+        "count": 1,
+        "components": [[0, 1, 2, 3, 4, 5]]
+      }
+    },
+    {
+      "query": { "type": "contains_cycle" },
+      "result": { "has_cycle": true }
+    },
+    {
+      "query": { "type": "mst", "method": "kruskal" },
+      "result": {
+        "total_weight": 18,
+        "edges": [[1, 3, 1], [1, 2, 2], [0, 1, 3], [3, 4, 5], [4, 5, 7]]
+      }
+    },
+    {
+      "query": { "type": "shortest_path", "source": 0, "target": 3 },
+      "result": {
+        "distances": [0, 3, 5, 4, 9, 16],
+        "path_to_target": [0, 1, 3]
+      }
+    }
+  ],
+  "stats": { "time_ms": 0.0 },
+  "meta": { "solver_version": "v1.0" }
+}

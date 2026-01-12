@@ -1,0 +1,2 @@
+/usr/bin/ar qc libio.a CMakeFiles/io.dir/src/io/json_parser.cpp.o CMakeFiles/io.dir/src/io/grid_parser.cpp.o
+/usr/bin/ranlib libio.a

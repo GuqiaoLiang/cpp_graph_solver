@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/graph_solver.dir/src/main.cpp.o -o graph_solver  libio.a libalgorithms.a libutils.a libtranslation.a libds.a libgraph.a 

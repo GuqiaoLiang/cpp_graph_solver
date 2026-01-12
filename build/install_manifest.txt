@@ -1,0 +1,1 @@
+/home/scygl3/.local/bin/graph_solver

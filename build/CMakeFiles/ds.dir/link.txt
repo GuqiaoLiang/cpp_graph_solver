@@ -1,0 +1,2 @@
+/usr/bin/ar qc libds.a CMakeFiles/ds.dir/src/ds/union_find.cpp.o
+/usr/bin/ranlib libds.a

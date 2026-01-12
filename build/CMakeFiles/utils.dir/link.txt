@@ -1,0 +1,2 @@
+/usr/bin/ar qc libutils.a CMakeFiles/utils.dir/src/utils/reverse_graph.cpp.o
+/usr/bin/ranlib libutils.a

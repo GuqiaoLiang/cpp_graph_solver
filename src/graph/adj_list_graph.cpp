@@ -1,6 +1,6 @@
-#include "include/graph/adj_list_graph.h"
+#include "graph/adj_list_graph.h"
 
-void AdjListGraph::AddEdge(int u, int v, int w = 1) {
+void AdjListGraph::AddEdge(int u, int v, int w ) {
     adj_[u].push_back({v, w});
 
     if (!directed_) {

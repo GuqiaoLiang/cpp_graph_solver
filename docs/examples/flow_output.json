@@ -1,0 +1,11 @@
+{
+  "mode": "flow",
+  "results": [
+    {
+      "query": { "type": "max_flow", "method": "dinic" },
+      "result": { "max_flow": 8 }
+    }
+  ],
+  "stats": { "time_ms": 0.0 },
+  "meta": { "solver_version": "v1.0" }
+}
