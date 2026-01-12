@@ -59,9 +59,14 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o
  /home/scygl3/cpp/cpp_graph_solver/include/graph/graph.h
  /home/scygl3/cpp/cpp_graph_solver/include/io/input_parser.h
  /home/scygl3/cpp/cpp_graph_solver/include/io/json_parser.h
+ /home/scygl3/cpp/cpp_graph_solver/include/search/astar.h
+ /home/scygl3/cpp/cpp_graph_solver/include/search/bfs.h
+ /home/scygl3/cpp/cpp_graph_solver/include/search/dfs.h
+ /home/scygl3/cpp/cpp_graph_solver/include/search/problem.h
+ /home/scygl3/cpp/cpp_graph_solver/include/search/problems/grid_problem.h
+ /home/scygl3/cpp/cpp_graph_solver/include/search/problems/nqueens_problem.h
+ /home/scygl3/cpp/cpp_graph_solver/include/search/result.h
  /home/scygl3/cpp/cpp_graph_solver/include/translation/edge_list_to_graph.h
- /home/scygl3/cpp/cpp_graph_solver/include/translation/grid_to_graph.h
- /home/scygl3/cpp/cpp_graph_solver/include/translation/task_to_flow.h
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h
@@ -176,6 +181,7 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o
  /usr/include/c++/13/bits/uniform_int_dist.h
  /usr/include/c++/13/bits/unique_ptr.h
  /usr/include/c++/13/bits/unordered_map.h
+ /usr/include/c++/13/bits/unordered_set.h
  /usr/include/c++/13/bits/uses_allocator.h
  /usr/include/c++/13/bits/uses_allocator_args.h
  /usr/include/c++/13/bits/utility.h
@@ -257,6 +263,7 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o
  /usr/include/c++/13/type_traits
  /usr/include/c++/13/typeinfo
  /usr/include/c++/13/unordered_map
+ /usr/include/c++/13/unordered_set
  /usr/include/c++/13/utility
  /usr/include/c++/13/valarray
  /usr/include/c++/13/variant

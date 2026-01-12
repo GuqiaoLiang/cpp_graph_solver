@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsearch.a CMakeFiles/search.dir/src/search/bfs.cpp.o CMakeFiles/search.dir/src/search/dfs.cpp.o CMakeFiles/search.dir/src/search/astar.cpp.o CMakeFiles/search.dir/src/search/problems/grid_problem.cpp.o CMakeFiles/search.dir/src/search/problems/nqueens_problem.cpp.o
+/usr/bin/ranlib libsearch.a

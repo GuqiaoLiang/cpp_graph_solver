@@ -95,6 +95,7 @@ graph_solver: CMakeFiles/graph_solver.dir/build.make
 graph_solver: libio.a
 graph_solver: libalgorithms.a
 graph_solver: libutils.a
+graph_solver: libsearch.a
 graph_solver: libtranslation.a
 graph_solver: libds.a
 graph_solver: libgraph.a

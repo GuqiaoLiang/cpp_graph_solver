@@ -45,12 +45,21 @@ target_include_directories(algorithms PUBLIC include)
 target_link_libraries(algorithms PUBLIC graph ds)
 
 add_library(translation
-    src/translation/grid_to_graph.cpp
     src/translation/edge_list_to_graph.cpp
     src/translation/task_to_flow.cpp
 )
 target_include_directories(translation PUBLIC include)
 target_link_libraries(translation PUBLIC graph nlohmann_json::nlohmann_json)
+
+add_library(search
+    src/search/bfs.cpp
+    src/search/dfs.cpp
+    src/search/astar.cpp
+    src/search/problems/grid_problem.cpp
+    src/search/problems/nqueens_problem.cpp
+)
+target_include_directories(search PUBLIC include)
+target_link_libraries(search PUBLIC nlohmann_json::nlohmann_json)
 
 add_library(io
     src/io/json_parser.cpp
@@ -62,7 +71,7 @@ target_link_libraries(io PUBLIC translation nlohmann_json::nlohmann_json)
 add_executable(graph_solver
     src/main.cpp
 )
-target_link_libraries(graph_solver PRIVATE io algorithms utils)
+target_link_libraries(graph_solver PRIVATE io algorithms utils search)
 target_include_directories(graph_solver PRIVATE .)
 
 install(TARGETS graph_solver RUNTIME DESTINATION bin)
@@ -115,3 +124,9 @@ add_executable(union_find_test
 )
 target_link_libraries(union_find_test PRIVATE ds)
 target_include_directories(union_find_test PRIVATE .)
+
+add_executable(search_test
+    test/search_test.cpp
+)
+target_link_libraries(search_test PRIVATE search)
+target_include_directories(search_test PRIVATE .)

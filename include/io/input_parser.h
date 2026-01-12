@@ -36,12 +36,21 @@ struct FlowProblem {
     std::vector<Edge> edges;
 };
 
+struct NQueensProblem {
+    int n = 0;
+};
+
+struct SearchProblem {
+    std::string type;
+    std::variant<GridProblem, NQueensProblem> problem;
+};
+
 struct Query {
     std::string type;
     nlohmann::json raw;
 };
 
-using Problem = std::variant<EdgeListProblem, GridProblem, FlowProblem>;
+using Problem = std::variant<EdgeListProblem, GridProblem, FlowProblem, SearchProblem>;
 
 struct InputSpec {
     std::string mode;
@@ -52,5 +61,6 @@ struct InputSpec {
 InputSpec ParseJsonText(const std::string& text);
 InputSpec ParseJsonFile(const std::string& path);
 void WriteJsonFile(const nlohmann::json& output, const std::string& path);
+void WriteJsonFile(const nlohmann::ordered_json& output, const std::string& path);
 
 }  // namespace io

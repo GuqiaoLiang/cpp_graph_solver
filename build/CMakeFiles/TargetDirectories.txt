@@ -3,6 +3,7 @@
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/utils.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/algorithms.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/translation.dir
+/home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/search.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/io.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/graph_solver.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/max_flow_test.dir
@@ -13,6 +14,7 @@
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/topo_sort_test.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/reverse_graph_test.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/union_find_test.dir
+/home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/search_test.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/edit_cache.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/rebuild_cache.dir
 /home/scygl3/cpp/cpp_graph_solver/build/CMakeFiles/list_install_components.dir

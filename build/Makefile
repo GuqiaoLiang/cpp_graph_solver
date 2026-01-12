@@ -227,6 +227,19 @@ translation/fast:
 .PHONY : translation/fast
 
 #=============================================================================
+# Target rules for targets named search
+
+# Build rule for target.
+search: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 search
+.PHONY : search
+
+# fast build rule for target.
+search/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/build
+.PHONY : search/fast
+
+#=============================================================================
 # Target rules for targets named io
 
 # Build rule for target.
@@ -355,6 +368,19 @@ union_find_test: cmake_check_build_system
 union_find_test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/union_find_test.dir/build.make CMakeFiles/union_find_test.dir/build
 .PHONY : union_find_test/fast
+
+#=============================================================================
+# Target rules for targets named search_test
+
+# Build rule for target.
+search_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 search_test
+.PHONY : search_test
+
+# fast build rule for target.
+search_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search_test.dir/build.make CMakeFiles/search_test.dir/build
+.PHONY : search_test/fast
 
 src/algorithms/connectivity/connected_components.o: src/algorithms/connectivity/connected_components.cpp.o
 .PHONY : src/algorithms/connectivity/connected_components.o
@@ -716,6 +742,126 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_solver.dir/build.make CMakeFiles/graph_solver.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/search/astar.o: src/search/astar.cpp.o
+.PHONY : src/search/astar.o
+
+# target to build an object file
+src/search/astar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/astar.cpp.o
+.PHONY : src/search/astar.cpp.o
+
+src/search/astar.i: src/search/astar.cpp.i
+.PHONY : src/search/astar.i
+
+# target to preprocess a source file
+src/search/astar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/astar.cpp.i
+.PHONY : src/search/astar.cpp.i
+
+src/search/astar.s: src/search/astar.cpp.s
+.PHONY : src/search/astar.s
+
+# target to generate assembly for a file
+src/search/astar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/astar.cpp.s
+.PHONY : src/search/astar.cpp.s
+
+src/search/bfs.o: src/search/bfs.cpp.o
+.PHONY : src/search/bfs.o
+
+# target to build an object file
+src/search/bfs.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/bfs.cpp.o
+.PHONY : src/search/bfs.cpp.o
+
+src/search/bfs.i: src/search/bfs.cpp.i
+.PHONY : src/search/bfs.i
+
+# target to preprocess a source file
+src/search/bfs.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/bfs.cpp.i
+.PHONY : src/search/bfs.cpp.i
+
+src/search/bfs.s: src/search/bfs.cpp.s
+.PHONY : src/search/bfs.s
+
+# target to generate assembly for a file
+src/search/bfs.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/bfs.cpp.s
+.PHONY : src/search/bfs.cpp.s
+
+src/search/dfs.o: src/search/dfs.cpp.o
+.PHONY : src/search/dfs.o
+
+# target to build an object file
+src/search/dfs.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/dfs.cpp.o
+.PHONY : src/search/dfs.cpp.o
+
+src/search/dfs.i: src/search/dfs.cpp.i
+.PHONY : src/search/dfs.i
+
+# target to preprocess a source file
+src/search/dfs.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/dfs.cpp.i
+.PHONY : src/search/dfs.cpp.i
+
+src/search/dfs.s: src/search/dfs.cpp.s
+.PHONY : src/search/dfs.s
+
+# target to generate assembly for a file
+src/search/dfs.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/dfs.cpp.s
+.PHONY : src/search/dfs.cpp.s
+
+src/search/problems/grid_problem.o: src/search/problems/grid_problem.cpp.o
+.PHONY : src/search/problems/grid_problem.o
+
+# target to build an object file
+src/search/problems/grid_problem.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/problems/grid_problem.cpp.o
+.PHONY : src/search/problems/grid_problem.cpp.o
+
+src/search/problems/grid_problem.i: src/search/problems/grid_problem.cpp.i
+.PHONY : src/search/problems/grid_problem.i
+
+# target to preprocess a source file
+src/search/problems/grid_problem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/problems/grid_problem.cpp.i
+.PHONY : src/search/problems/grid_problem.cpp.i
+
+src/search/problems/grid_problem.s: src/search/problems/grid_problem.cpp.s
+.PHONY : src/search/problems/grid_problem.s
+
+# target to generate assembly for a file
+src/search/problems/grid_problem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/problems/grid_problem.cpp.s
+.PHONY : src/search/problems/grid_problem.cpp.s
+
+src/search/problems/nqueens_problem.o: src/search/problems/nqueens_problem.cpp.o
+.PHONY : src/search/problems/nqueens_problem.o
+
+# target to build an object file
+src/search/problems/nqueens_problem.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/problems/nqueens_problem.cpp.o
+.PHONY : src/search/problems/nqueens_problem.cpp.o
+
+src/search/problems/nqueens_problem.i: src/search/problems/nqueens_problem.cpp.i
+.PHONY : src/search/problems/nqueens_problem.i
+
+# target to preprocess a source file
+src/search/problems/nqueens_problem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/problems/nqueens_problem.cpp.i
+.PHONY : src/search/problems/nqueens_problem.cpp.i
+
+src/search/problems/nqueens_problem.s: src/search/problems/nqueens_problem.cpp.s
+.PHONY : src/search/problems/nqueens_problem.s
+
+# target to generate assembly for a file
+src/search/problems/nqueens_problem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/src/search/problems/nqueens_problem.cpp.s
+.PHONY : src/search/problems/nqueens_problem.cpp.s
+
 src/translation/edge_list_to_graph.o: src/translation/edge_list_to_graph.cpp.o
 .PHONY : src/translation/edge_list_to_graph.o
 
@@ -739,30 +885,6 @@ src/translation/edge_list_to_graph.s: src/translation/edge_list_to_graph.cpp.s
 src/translation/edge_list_to_graph.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/translation.dir/build.make CMakeFiles/translation.dir/src/translation/edge_list_to_graph.cpp.s
 .PHONY : src/translation/edge_list_to_graph.cpp.s
-
-src/translation/grid_to_graph.o: src/translation/grid_to_graph.cpp.o
-.PHONY : src/translation/grid_to_graph.o
-
-# target to build an object file
-src/translation/grid_to_graph.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/translation.dir/build.make CMakeFiles/translation.dir/src/translation/grid_to_graph.cpp.o
-.PHONY : src/translation/grid_to_graph.cpp.o
-
-src/translation/grid_to_graph.i: src/translation/grid_to_graph.cpp.i
-.PHONY : src/translation/grid_to_graph.i
-
-# target to preprocess a source file
-src/translation/grid_to_graph.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/translation.dir/build.make CMakeFiles/translation.dir/src/translation/grid_to_graph.cpp.i
-.PHONY : src/translation/grid_to_graph.cpp.i
-
-src/translation/grid_to_graph.s: src/translation/grid_to_graph.cpp.s
-.PHONY : src/translation/grid_to_graph.s
-
-# target to generate assembly for a file
-src/translation/grid_to_graph.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/translation.dir/build.make CMakeFiles/translation.dir/src/translation/grid_to_graph.cpp.s
-.PHONY : src/translation/grid_to_graph.cpp.s
 
 src/translation/task_to_flow.o: src/translation/task_to_flow.cpp.o
 .PHONY : src/translation/task_to_flow.o
@@ -932,6 +1054,30 @@ test/reverse_graph_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/reverse_graph_test.dir/build.make CMakeFiles/reverse_graph_test.dir/test/reverse_graph_test.cpp.s
 .PHONY : test/reverse_graph_test.cpp.s
 
+test/search_test.o: test/search_test.cpp.o
+.PHONY : test/search_test.o
+
+# target to build an object file
+test/search_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search_test.dir/build.make CMakeFiles/search_test.dir/test/search_test.cpp.o
+.PHONY : test/search_test.cpp.o
+
+test/search_test.i: test/search_test.cpp.i
+.PHONY : test/search_test.i
+
+# target to preprocess a source file
+test/search_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search_test.dir/build.make CMakeFiles/search_test.dir/test/search_test.cpp.i
+.PHONY : test/search_test.cpp.i
+
+test/search_test.s: test/search_test.cpp.s
+.PHONY : test/search_test.s
+
+# target to generate assembly for a file
+test/search_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/search_test.dir/build.make CMakeFiles/search_test.dir/test/search_test.cpp.s
+.PHONY : test/search_test.cpp.s
+
 test/shortest_path_test.o: test/shortest_path_test.cpp.o
 .PHONY : test/shortest_path_test.o
 
@@ -1026,6 +1172,8 @@ help:
 	@echo "... max_flow_test"
 	@echo "... mst_test"
 	@echo "... reverse_graph_test"
+	@echo "... search"
+	@echo "... search_test"
 	@echo "... shortest_path_test"
 	@echo "... topo_sort_test"
 	@echo "... translation"
@@ -1076,12 +1224,24 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/search/astar.o"
+	@echo "... src/search/astar.i"
+	@echo "... src/search/astar.s"
+	@echo "... src/search/bfs.o"
+	@echo "... src/search/bfs.i"
+	@echo "... src/search/bfs.s"
+	@echo "... src/search/dfs.o"
+	@echo "... src/search/dfs.i"
+	@echo "... src/search/dfs.s"
+	@echo "... src/search/problems/grid_problem.o"
+	@echo "... src/search/problems/grid_problem.i"
+	@echo "... src/search/problems/grid_problem.s"
+	@echo "... src/search/problems/nqueens_problem.o"
+	@echo "... src/search/problems/nqueens_problem.i"
+	@echo "... src/search/problems/nqueens_problem.s"
 	@echo "... src/translation/edge_list_to_graph.o"
 	@echo "... src/translation/edge_list_to_graph.i"
 	@echo "... src/translation/edge_list_to_graph.s"
-	@echo "... src/translation/grid_to_graph.o"
-	@echo "... src/translation/grid_to_graph.i"
-	@echo "... src/translation/grid_to_graph.s"
 	@echo "... src/translation/task_to_flow.o"
 	@echo "... src/translation/task_to_flow.i"
 	@echo "... src/translation/task_to_flow.s"
@@ -1103,6 +1263,9 @@ help:
 	@echo "... test/reverse_graph_test.o"
 	@echo "... test/reverse_graph_test.i"
 	@echo "... test/reverse_graph_test.s"
+	@echo "... test/search_test.o"
+	@echo "... test/search_test.i"
+	@echo "... test/search_test.s"
 	@echo "... test/shortest_path_test.o"
 	@echo "... test/shortest_path_test.i"
 	@echo "... test/shortest_path_test.s"

@@ -1,2 +1,2 @@
-/usr/bin/ar qc libtranslation.a CMakeFiles/translation.dir/src/translation/grid_to_graph.cpp.o CMakeFiles/translation.dir/src/translation/edge_list_to_graph.cpp.o CMakeFiles/translation.dir/src/translation/task_to_flow.cpp.o
+/usr/bin/ar qc libtranslation.a CMakeFiles/translation.dir/src/translation/edge_list_to_graph.cpp.o CMakeFiles/translation.dir/src/translation/task_to_flow.cpp.o
 /usr/bin/ranlib libtranslation.a

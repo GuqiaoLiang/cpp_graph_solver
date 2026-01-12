@@ -9,9 +9,17 @@
 
 namespace io {
 
-static void AppendJsonInline(std::ostream& out, const nlohmann::json& value);
+template <typename Json>
+static void AppendJsonInline(std::ostream& out, const Json& value);
 
-static void AppendJsonPretty(std::ostream& out, const nlohmann::json& value,
+template <typename Json>
+static bool IsPrimitive(const Json& value) {
+    return value.is_string() || value.is_boolean() || value.is_number() ||
+           value.is_null();
+}
+
+template <typename Json>
+static void AppendJsonPretty(std::ostream& out, const Json& value,
                              int indent, int level) {
     if (value.is_object()) {
         out << "{\n";
@@ -19,10 +27,8 @@ static void AppendJsonPretty(std::ostream& out, const nlohmann::json& value,
         for (const auto& item : value.items()) {
             out << std::string((level + 1) * indent, ' ');
             out << nlohmann::json(item.key()).dump() << ": ";
-            if (item.value().is_object()) {
+            if (item.value().is_object() || item.value().is_array()) {
                 AppendJsonPretty(out, item.value(), indent, level + 1);
-            } else if (item.value().is_array()) {
-                AppendJsonInline(out, item.value());
             } else {
                 out << item.value().dump();
             }
@@ -36,14 +42,35 @@ static void AppendJsonPretty(std::ostream& out, const nlohmann::json& value,
     }
 
     if (value.is_array()) {
-        AppendJsonInline(out, value);
+        bool inline_array = true;
+        for (const auto& item : value) {
+            if (!IsPrimitive(item)) {
+                inline_array = false;
+                break;
+            }
+        }
+        if (inline_array) {
+            AppendJsonInline(out, value);
+            return;
+        }
+        out << "[\n";
+        for (size_t i = 0; i < value.size(); ++i) {
+            out << std::string((level + 1) * indent, ' ');
+            AppendJsonPretty(out, value[i], indent, level + 1);
+            if (i + 1 < value.size()) {
+                out << ",";
+            }
+            out << "\n";
+        }
+        out << std::string(level * indent, ' ') << "]";
         return;
     }
 
     out << value.dump();
 }
 
-static void AppendJsonInline(std::ostream& out, const nlohmann::json& value) {
+template <typename Json>
+static void AppendJsonInline(std::ostream& out, const Json& value) {
     if (value.is_array()) {
         out << "[";
         for (size_t i = 0; i < value.size(); ++i) {
@@ -107,6 +134,32 @@ static FlowProblem ParseFlowProblem(const nlohmann::json& problem) {
     return out;
 }
 
+static NQueensProblem ParseNQueensProblem(const nlohmann::json& problem) {
+    NQueensProblem out;
+    out.n = problem.at("n").get<int>();
+    return out;
+}
+
+static SearchProblem ParseSearchProblem(const nlohmann::json& problem) {
+    SearchProblem out;
+    out.type = problem.at("type").get<std::string>();
+    if (out.type == "grid") {
+        out.problem = ParseGridProblem(problem);
+    } else if (out.type == "n_queens") {
+        out.problem = ParseNQueensProblem(problem);
+    } else {
+        throw std::runtime_error("Unsupported search problem type: " + out.type);
+    }
+    return out;
+}
+
+static SearchProblem ParseLegacyGridSearchProblem(const nlohmann::json& problem) {
+    SearchProblem out;
+    out.type = "grid";
+    out.problem = ParseGridProblem(problem);
+    return out;
+}
+
 static InputSpec ParseJsonRoot(const nlohmann::json& root) {
     InputSpec spec;
     spec.mode = root.at("mode").get<std::string>();
@@ -115,9 +168,11 @@ static InputSpec ParseJsonRoot(const nlohmann::json& root) {
     if (spec.mode == "edge_list") {
         spec.problem = ParseEdgeListProblem(problem);
     } else if (spec.mode == "grid") {
-        spec.problem = ParseGridProblem(problem);
+        spec.problem = ParseLegacyGridSearchProblem(problem);
     } else if (spec.mode == "flow") {
         spec.problem = ParseFlowProblem(problem);
+    } else if (spec.mode == "search") {
+        spec.problem = ParseSearchProblem(problem);
     } else {
         throw std::runtime_error("Unsupported mode: " + spec.mode);
     }
@@ -148,6 +203,14 @@ InputSpec ParseJsonFile(const std::string& path) {
 }
 
 void WriteJsonFile(const nlohmann::json& output, const std::string& path) {
+    std::ofstream out(path);
+    if (!out) {
+        throw std::runtime_error("Failed to open output file: " + path);
+    }
+    AppendJsonPretty(out, output, 2, 0);
+}
+
+void WriteJsonFile(const nlohmann::ordered_json& output, const std::string& path) {
     std::ofstream out(path);
     if (!out) {
         throw std::runtime_error("Failed to open output file: " + path);

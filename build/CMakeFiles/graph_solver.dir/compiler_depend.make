@@ -58,9 +58,14 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o: /home/scygl3/cpp/cpp_graph_solver/sr
   /home/scygl3/cpp/cpp_graph_solver/include/graph/graph.h \
   /home/scygl3/cpp/cpp_graph_solver/include/io/input_parser.h \
   /home/scygl3/cpp/cpp_graph_solver/include/io/json_parser.h \
+  /home/scygl3/cpp/cpp_graph_solver/include/search/astar.h \
+  /home/scygl3/cpp/cpp_graph_solver/include/search/bfs.h \
+  /home/scygl3/cpp/cpp_graph_solver/include/search/dfs.h \
+  /home/scygl3/cpp/cpp_graph_solver/include/search/problem.h \
+  /home/scygl3/cpp/cpp_graph_solver/include/search/problems/grid_problem.h \
+  /home/scygl3/cpp/cpp_graph_solver/include/search/problems/nqueens_problem.h \
+  /home/scygl3/cpp/cpp_graph_solver/include/search/result.h \
   /home/scygl3/cpp/cpp_graph_solver/include/translation/edge_list_to_graph.h \
-  /home/scygl3/cpp/cpp_graph_solver/include/translation/grid_to_graph.h \
-  /home/scygl3/cpp/cpp_graph_solver/include/translation/task_to_flow.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -175,6 +180,7 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o: /home/scygl3/cpp/cpp_graph_solver/sr
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
+  /usr/include/c++/13/bits/unordered_set.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -256,6 +262,7 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o: /home/scygl3/cpp/cpp_graph_solver/sr
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/unordered_set \
   /usr/include/c++/13/utility \
   /usr/include/c++/13/valarray \
   /usr/include/c++/13/variant \
@@ -380,8 +387,6 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o: /home/scygl3/cpp/cpp_graph_solver/sr
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
-/usr/include/x86_64-linux-gnu/sys/types.h:
-
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
@@ -474,6 +479,8 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o: /home/scygl3/cpp/cpp_graph_solver/sr
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
@@ -532,9 +539,13 @@ CMakeFiles/graph_solver.dir/src/main.cpp.o: /home/scygl3/cpp/cpp_graph_solver/sr
 
 /usr/include/c++/13/variant:
 
-/usr/include/c++/13/bits/memoryfwd.h:
+/usr/include/c++/13/valarray:
 
-/usr/include/c++/13/bits/fs_fwd.h:
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+/usr/include/c++/13/unordered_set:
+
+/usr/include/c++/13/type_traits:
 
 /usr/include/c++/13/bits/basic_ios.tcc:
 
@@ -548,21 +559,9 @@ _deps/nlohmann_json-src/include/nlohmann/detail/output/binary_writer.hpp:
 
 /usr/include/c++/13/bits/locale_classes.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/usr/include/c++/13/bits/node_handle.h:
-
-_deps/nlohmann_json-src/include/nlohmann/detail/input/position_t.hpp:
-
-/usr/include/c++/13/forward_list:
-
 /usr/include/c++/13/bits/functexcept.h:
 
 _deps/nlohmann_json-src/include/nlohmann/detail/input/parser.hpp:
-
-/usr/include/c++/13/bits/atomic_base.h:
-
-/usr/include/c++/13/bits/uses_allocator_args.h:
 
 /usr/include/c++/13/bits/indirect_array.h:
 
@@ -571,6 +570,8 @@ _deps/nlohmann_json-src/include/nlohmann/detail/input/parser.hpp:
 _deps/nlohmann_json-src/include/nlohmann/detail/input/json_sax.hpp:
 
 /usr/include/c++/13/bits/valarray_array.tcc:
+
+/usr/include/c++/13/bits/unordered_set.h:
 
 /usr/include/c++/13/bits/exception_ptr.h:
 
@@ -586,8 +587,6 @@ _deps/nlohmann_json-src/include/nlohmann/detail/input/json_sax.hpp:
 
 /usr/include/c++/13/bits/shared_ptr_atomic.h:
 
-/usr/include/c++/13/bits/enable_special_members.h:
-
 /usr/include/c++/13/bits/stream_iterator.h:
 
 /usr/include/c++/13/bits/hashtable_policy.h:
@@ -598,11 +597,17 @@ _deps/nlohmann_json-src/include/nlohmann/detail/input/json_sax.hpp:
 
 /usr/include/c++/13/bits/cxxabi_forced.h:
 
+_deps/nlohmann_json-src/include/nlohmann/detail/input/binary_reader.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/c++/13/bits/chrono.h:
 
 /usr/include/c++/13/bits/basic_ios.h:
+
+/usr/include/c++/13/unordered_map:
+
+/usr/include/c++/13/bits/allocator.h:
 
 /usr/include/c++/13/bits/stl_bvector.h:
 
@@ -617,8 +622,6 @@ _deps/nlohmann_json-src/include/nlohmann/detail/input/input_adapters.hpp:
 /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
 
 /usr/include/c++/13/any:
-
-/usr/include/c++/13/algorithm:
 
 /usr/include/c++/13/backward/auto_ptr.h:
 
@@ -648,15 +651,11 @@ _deps/nlohmann_json-src/include/nlohmann/detail/hash.hpp:
 
 _deps/nlohmann_json-src/include/nlohmann/detail/input/lexer.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+/usr/include/c++/13/algorithm:
 
-/home/scygl3/cpp/cpp_graph_solver/include/translation/task_to_flow.h:
+/usr/include/c++/13/bits/enable_special_members.h:
 
-/usr/include/c++/13/bits/invoke.h:
-
-_deps/nlohmann_json-src/include/nlohmann/detail/macro_scope.hpp:
-
-/home/scygl3/cpp/cpp_graph_solver/include/algorithms/mst/mst.h:
+/home/scygl3/cpp/cpp_graph_solver/include/search/problems/grid_problem.h:
 
 _deps/nlohmann_json-src/include/nlohmann/thirdparty/hedley/hedley.hpp:
 
@@ -676,12 +675,6 @@ _deps/nlohmann_json-src/include/nlohmann/thirdparty/hedley/hedley.hpp:
 
 _deps/nlohmann_json-src/include/nlohmann/detail/iterators/iter_impl.hpp:
 
-/usr/include/c++/13/streambuf:
-
-/usr/include/c++/13/bits/memory_resource.h:
-
-/usr/include/c++/13/bits/valarray_after.h:
-
 /usr/include/c++/13/bits/basic_string.tcc:
 
 /usr/include/c++/13/bits/allocated_ptr.h:
@@ -697,6 +690,8 @@ _deps/nlohmann_json-src/include/nlohmann/detail/iterators/iter_impl.hpp:
 /usr/include/c++/13/tr1/special_function_util.h:
 
 _deps/nlohmann_json-src/include/nlohmann/detail/iterators/internal_iterator.hpp:
+
+/home/scygl3/cpp/cpp_graph_solver/include/search/result.h:
 
 /usr/include/c++/13/bits/fs_ops.h:
 
@@ -718,21 +713,9 @@ _deps/nlohmann_json-src/include/nlohmann/detail/meta/call_std/begin.hpp:
 
 _deps/nlohmann_json-src/include/nlohmann/detail/meta/type_traits.hpp:
 
-_deps/nlohmann_json-src/include/nlohmann/detail/input/binary_reader.hpp:
-
-/home/scygl3/cpp/cpp_graph_solver/include/translation/grid_to_graph.h:
-
-/usr/include/c++/13/tr1/legendre_function.tcc:
-
-/usr/include/c++/13/bits/move.h:
-
 /home/scygl3/cpp/cpp_graph_solver/include/algorithms/connectivity/connected_components.h:
 
 _deps/nlohmann_json-src/include/nlohmann/detail/value_t.hpp:
-
-/usr/include/c++/13/bits/codecvt.h:
-
-/usr/include/c++/13/bits/stl_tree.h:
 
 _deps/nlohmann_json-src/include/nlohmann/json.hpp:
 
@@ -744,6 +727,14 @@ _deps/nlohmann_json-src/include/nlohmann/json.hpp:
 
 /usr/include/c++/13/tr1/exp_integral.tcc:
 
+_deps/nlohmann_json-src/include/nlohmann/adl_serializer.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+
+_deps/nlohmann_json-src/include/nlohmann/detail/conversions/to_json.hpp:
+
+/usr/include/c++/13/bits/stl_deque.h:
+
 /usr/include/c++/13/bits/fs_path.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
@@ -752,17 +743,19 @@ _deps/nlohmann_json-src/include/nlohmann/json.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
+/home/scygl3/cpp/cpp_graph_solver/include/search/problems/nqueens_problem.h:
+
 /usr/include/c++/13/bits/stl_pair.h:
 
 /usr/include/c++/13/cstdio:
 
-_deps/nlohmann_json-src/include/nlohmann/adl_serializer.hpp:
+/home/scygl3/cpp/cpp_graph_solver/include/search/astar.h:
 
-/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+_deps/nlohmann_json-src/include/nlohmann/detail/macro_unscope.hpp:
 
-_deps/nlohmann_json-src/include/nlohmann/detail/conversions/to_json.hpp:
+/usr/include/c++/13/bits/atomic_base.h:
 
-/usr/include/c++/13/bits/stl_deque.h:
+/usr/include/c++/13/bits/uses_allocator_args.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
@@ -777,6 +770,16 @@ _deps/nlohmann_json-src/include/nlohmann/detail/conversions/to_chars.hpp:
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 _deps/nlohmann_json-src/include/nlohmann/detail/string_escape.hpp:
+
+/home/scygl3/cpp/cpp_graph_solver/include/translation/edge_list_to_graph.h:
+
+_deps/nlohmann_json-src/include/nlohmann/detail/input/position_t.hpp:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/c++/13/bits/node_handle.h:
+
+/usr/include/c++/13/forward_list:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
@@ -798,7 +801,9 @@ _deps/nlohmann_json-src/include/nlohmann/detail/meta/identity_tag.hpp:
 
 /usr/include/c++/13/bits/slice_array.h:
 
-_deps/nlohmann_json-src/include/nlohmann/detail/macro_unscope.hpp:
+/usr/include/c++/13/bits/fs_fwd.h:
+
+/usr/include/c++/13/bits/memoryfwd.h:
 
 /usr/include/c++/13/typeinfo:
 
@@ -864,15 +869,19 @@ _deps/nlohmann_json-src/include/nlohmann/detail/meta/is_sax.hpp:
 
 /usr/include/c++/13/bits/requires_hosted.h:
 
+/home/scygl3/cpp/cpp_graph_solver/include/algorithms/mst/mst.h:
+
+_deps/nlohmann_json-src/include/nlohmann/detail/macro_scope.hpp:
+
 _deps/nlohmann_json-src/include/nlohmann/detail/meta/cpp_future.hpp:
 
 /home/scygl3/cpp/cpp_graph_solver/include/algorithms/shortest_path/bfs.h:
 
 /usr/include/c++/13/bits/stl_map.h:
 
-/usr/include/c++/13/bits/new_allocator.h:
-
 _deps/nlohmann_json-src/include/nlohmann/detail/exceptions.hpp:
+
+/usr/include/c++/13/bits/new_allocator.h:
 
 /usr/include/c++/13/bits/stl_uninitialized.h:
 
@@ -898,7 +907,25 @@ _deps/nlohmann_json-src/include/nlohmann/thirdparty/hedley/hedley_undef.hpp:
 
 /usr/include/c++/13/bits/unordered_map.h:
 
-/home/scygl3/cpp/cpp_graph_solver/include/translation/edge_list_to_graph.h:
+/usr/include/c++/13/streambuf:
+
+/usr/include/c++/13/bits/valarray_after.h:
+
+/usr/include/c++/13/bits/memory_resource.h:
+
+/usr/include/c++/13/bits/invoke.h:
+
+/usr/include/c++/13/bits/codecvt.h:
+
+/usr/include/c++/13/bits/stl_tree.h:
+
+/home/scygl3/cpp/cpp_graph_solver/include/search/bfs.h:
+
+/usr/include/c++/13/bits/move.h:
+
+/usr/include/c++/13/tuple:
+
+/usr/include/c++/13/bits/nested_exception.h:
 
 /usr/include/c++/13/bits/ostream_insert.h:
 
@@ -939,8 +966,6 @@ _deps/nlohmann_json-src/include/nlohmann/thirdparty/hedley/hedley_undef.hpp:
 /usr/include/c++/13/bits/stl_algo.h:
 
 /usr/include/c++/13/cstddef:
-
-/usr/include/c++/13/valarray:
 
 /usr/include/c++/13/bits/stl_algobase.h:
 
@@ -1030,6 +1055,8 @@ _deps/nlohmann_json-src/include/nlohmann/detail/conversions/from_json.hpp:
 
 /usr/include/linux/errno.h:
 
+/home/scygl3/cpp/cpp_graph_solver/include/search/problem.h:
+
 /usr/include/c++/13/debug/debug.h:
 
 _deps/nlohmann_json-src/include/nlohmann/detail/meta/std_fs.hpp:
@@ -1104,20 +1131,14 @@ _deps/nlohmann_json-src/include/nlohmann/detail/iterators/primitive_iterator.hpp
 
 /usr/include/c++/13/tr1/ell_integral.tcc:
 
+/home/scygl3/cpp/cpp_graph_solver/include/search/dfs.h:
+
 /usr/include/c++/13/bits/range_access.h:
 
 /usr/include/c++/13/tr1/hypergeometric.tcc:
 
-/usr/include/c++/13/type_traits:
+/usr/include/c++/13/tr1/legendre_function.tcc:
 
 _deps/nlohmann_json-src/include/nlohmann/byte_container_with_subtype.hpp:
 
 /usr/include/c++/13/tr1/modified_bessel_func.tcc:
-
-/usr/include/c++/13/bits/nested_exception.h:
-
-/usr/include/c++/13/tuple:
-
-/usr/include/c++/13/bits/allocator.h:
-
-/usr/include/c++/13/unordered_map:

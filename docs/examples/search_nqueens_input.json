@@ -1,0 +1,11 @@
+{
+  "mode": "search",
+  "problem": {
+    "type": "n_queens",
+    "n": 8
+  },
+  "queries": [
+    { "type": "find_one" },
+    { "type": "count_solutions" }
+  ]
+}

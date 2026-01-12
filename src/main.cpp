@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <chrono>
 #include <cmath>
 #include <iostream>
@@ -14,16 +15,20 @@
 #include "algorithms/shortest_path/dijkstra.h"
 #include "io/input_parser.h"
 #include "io/json_parser.h"
+#include "search/astar.h"
+#include "search/bfs.h"
+#include "search/dfs.h"
+#include "search/problems/grid_problem.h"
+#include "search/problems/nqueens_problem.h"
 #include "translation/edge_list_to_graph.h"
-#include "translation/grid_to_graph.h"
-#include "translation/task_to_flow.h"
 
 using nlohmann::json;
+using nlohmann::ordered_json;
 
 namespace {
 
-json DistancesToJson(const std::vector<int>& dist) {
-    json out = json::array();
+ordered_json DistancesToJson(const std::vector<int>& dist) {
+    ordered_json out = ordered_json::array();
     for (int d : dist) {
         if (d < 0) {
             out.push_back(nullptr);
@@ -34,9 +39,9 @@ json DistancesToJson(const std::vector<int>& dist) {
     return out;
 }
 
-json DistancesToJson(const std::vector<long long>& dist) {
+ordered_json DistancesToJson(const std::vector<long long>& dist) {
     const long long INF = 1e18 / 4;
-    json out = json::array();
+    ordered_json out = ordered_json::array();
     for (long long d : dist) {
         if (d >= INF) {
             out.push_back(nullptr);
@@ -47,35 +52,62 @@ json DistancesToJson(const std::vector<long long>& dist) {
     return out;
 }
 
-json PathToJson(const std::vector<int>& path) {
-    json out = json::array();
+ordered_json PathToJson(const std::vector<int>& path) {
+    ordered_json out = ordered_json::array();
     for (int v : path) {
         out.push_back(v);
     }
     return out;
 }
 
-json GridPathToJson(const GridGraph& grid, const std::vector<int>& path) {
-    json out = json::array();
-    for (int v : path) {
-        auto cell = GridVertexToCell(grid, v);
-        out.push_back({cell[0], cell[1]});
+ordered_json GridPathToJson(const std::vector<search::GridCell>& path) {
+    ordered_json out = ordered_json::array();
+    for (const auto& cell : path) {
+        out.push_back({cell.row, cell.col});
     }
     return out;
 }
 
-json RunEdgeListQuery(const AdjListGraph& graph, const io::EdgeListProblem& problem,
-                      const io::Query& query) {
+ordered_json NQueensSolutionToJson(const std::vector<int>& cols) {
+    ordered_json out = ordered_json::array();
+    for (int col : cols) {
+        out.push_back(col);
+    }
+    return out;
+}
+
+ordered_json QueryToJson(const io::Query& query) {
+    ordered_json out;
+    out["type"] = query.type;
+    for (const auto& item : query.raw.items()) {
+        if (item.key() == "type") {
+            continue;
+        }
+        out[item.key()] = item.value();
+    }
+    return out;
+}
+
+ordered_json RunEdgeListQuery(const AdjListGraph& graph,
+                              const io::EdgeListProblem& problem,
+                              const io::Query& query) {
     if (query.type == "connected_components") {
         auto res = Connected_Component(graph);
-        return json{{"count", res.components}, {"component_ids", res.cids}};
+        ordered_json out;
+        out["count"] = res.components;
+        out["component_ids"] = res.cids;
+        return out;
     }
 
     if (query.type == "contains_cycle") {
         if (graph.IsDirected()) {
-            return json{{"has_cycle", !IsDAG(graph)}};
+            ordered_json out;
+            out["has_cycle"] = !IsDAG(graph);
+            return out;
         }
-        return json{{"has_cycle", HasCycleUndirected(graph)}};
+        ordered_json out;
+        out["has_cycle"] = HasCycleUndirected(graph);
+        return out;
     }
 
     if (query.type == "mst") {
@@ -90,11 +122,14 @@ json RunEdgeListQuery(const AdjListGraph& graph, const io::EdgeListProblem& prob
             throw std::runtime_error("Unsupported MST method: " + method);
         }
 
-        json edges = json::array();
+        ordered_json edges = ordered_json::array();
         for (const auto& [u, v, w] : res.edges) {
             edges.push_back({u, v, w});
         }
-        return json{{"total_weight", res.total_weight}, {"edges", edges}};
+        ordered_json out;
+        out["total_weight"] = res.total_weight;
+        out["edges"] = edges;
+        return out;
     }
 
     if (query.type == "shortest_path") {
@@ -112,7 +147,8 @@ json RunEdgeListQuery(const AdjListGraph& graph, const io::EdgeListProblem& prob
 
         if (method == "bfs") {
             auto res = GraphBFSWithParent(graph, source);
-            json out{{"distances", DistancesToJson(res.dist)}};
+            ordered_json out;
+            out["distances"] = DistancesToJson(res.dist);
             if (has_target) {
                 auto path = ReconstructPath(res.parent, source, target);
                 out["path_to_target"] = PathToJson(path);
@@ -121,7 +157,8 @@ json RunEdgeListQuery(const AdjListGraph& graph, const io::EdgeListProblem& prob
         }
         if (method == "dijkstra") {
             auto res = DijkstraShortestPath(graph, source);
-            json out{{"distances", DistancesToJson(res.dist)}};
+            ordered_json out;
+            out["distances"] = DistancesToJson(res.dist);
             if (has_target) {
                 auto path = ReconstructPath(res.parent, source, target);
                 out["path_to_target"] = PathToJson(path);
@@ -134,56 +171,90 @@ json RunEdgeListQuery(const AdjListGraph& graph, const io::EdgeListProblem& prob
     throw std::runtime_error("Unsupported query type: " + query.type);
 }
 
-json RunGridQuery(const GridGraph& grid, const io::GridProblem& problem,
-                  const io::Query& query) {
+ordered_json RunGridSearchQuery(const io::GridProblem& problem,
+                                const io::Query& query) {
     if (query.type != "shortest_path") {
         throw std::runtime_error("Unsupported grid query type: " + query.type);
     }
 
     std::string method = query.raw.value("method", "bfs");
-    int start = GridCellToVertex(grid, problem.start[0], problem.start[1]);
-    int target = GridCellToVertex(grid, problem.target[0], problem.target[1]);
-
-    if (start < 0 || target < 0) {
+    search::GridSearchProblem grid(problem);
+    if (!grid.IsWalkable(grid.Start()) || !grid.IsWalkable(grid.Target())) {
         throw std::runtime_error("Grid start/target not walkable");
     }
 
+    search::SearchResult<search::GridCell> res;
     if (method == "bfs") {
-        auto res = GraphBFSWithParent(grid.graph, start);
-        auto path = ReconstructPath(res.parent, start, target);
-        json out;
-        if (res.dist[target] < 0) {
-            out["distance"] = nullptr;
-        } else {
-            out["distance"] = res.dist[target];
-        }
-        out["path_to_target"] = GridPathToJson(grid, path);
-        return out;
-    }
-
-    if (method == "astar") {
-        auto heuristic = [&](int u, int t) {
-            auto cu = GridVertexToCell(grid, u);
-            auto ct = GridVertexToCell(grid, t);
-            return static_cast<long long>(
-                std::abs(cu[0] - ct[0]) + std::abs(cu[1] - ct[1]));
+        res = search::BFS(grid, grid.Start());
+    } else if (method == "dfs") {
+        res = search::DFSFindOne(grid, grid.Start());
+    } else if (method == "astar") {
+        auto target = grid.Target();
+        std::function<long long(const search::GridCell&)> heuristic =
+            [&](const search::GridCell& cell) -> long long {
+            int dr = std::abs(cell.row - target.row);
+            int dc = std::abs(cell.col - target.col);
+            if (problem.allow_diagonal) {
+                return std::max(dr, dc);
+            }
+            return dr + dc;
         };
-        auto res = AStarSearch(grid.graph, start, target, heuristic);
-        auto path = ReconstructPath(res.parent, start, target);
-        json out;
-        if (res.dist[target] >= 1e18 / 4) {
-            out["distance"] = nullptr;
-        } else {
-            out["distance"] = res.dist[target];
-        }
-        out["path_to_target"] = GridPathToJson(grid, path);
-        return out;
+        res = search::AStarSearch(grid, grid.Start(), heuristic);
+    } else {
+        throw std::runtime_error("Unsupported grid shortest_path method: " + method);
     }
 
-    throw std::runtime_error("Unsupported grid shortest_path method: " + method);
+    ordered_json out;
+    if (!res.found) {
+        out["distance"] = nullptr;
+        out["path_to_target"] = ordered_json::array();
+    } else {
+        out["distance"] = static_cast<int>(res.path.size()) - 1;
+        out["path_to_target"] = GridPathToJson(res.path);
+    }
+    return out;
 }
 
-json RunFlowQuery(const io::FlowProblem& problem, const io::Query& query) {
+ordered_json RunNQueensQuery(const io::NQueensProblem& problem,
+                             const io::Query& query) {
+    search::NQueensProblem nqueens(problem.n);
+    if (query.type == "find_one") {
+        auto res = search::DFSFindOne(nqueens, nqueens.Start());
+        ordered_json out;
+        out["solutions"] = ordered_json::array();
+        if (res.found) {
+            out["solutions"].push_back(NQueensSolutionToJson(res.path.back().cols));
+        }
+        return out;
+    }
+    if (query.type == "count_solutions") {
+        auto res = search::DFSCountSolutions(nqueens, nqueens.Start());
+        ordered_json out;
+        out["count"] = res.count;
+        if (!res.example_path.empty()) {
+            out["solutions"] = ordered_json::array();
+            out["solutions"].push_back(
+                NQueensSolutionToJson(res.example_path.back().cols));
+        }
+        return out;
+    }
+    throw std::runtime_error("Unsupported n_queens query type: " + query.type);
+}
+
+ordered_json RunSearchQuery(const io::SearchProblem& problem,
+                            const io::Query& query) {
+    if (problem.type == "grid") {
+        const auto& grid = std::get<io::GridProblem>(problem.problem);
+        return RunGridSearchQuery(grid, query);
+    }
+    if (problem.type == "n_queens") {
+        const auto& nq = std::get<io::NQueensProblem>(problem.problem);
+        return RunNQueensQuery(nq, query);
+    }
+    throw std::runtime_error("Unsupported search problem type: " + problem.type);
+}
+
+ordered_json RunFlowQuery(const io::FlowProblem& problem, const io::Query& query) {
     if (query.type != "max_flow") {
         throw std::runtime_error("Unsupported flow query type: " + query.type);
     }
@@ -197,7 +268,9 @@ json RunFlowQuery(const io::FlowProblem& problem, const io::Query& query) {
         dinic.AddEdge(edge.u, edge.v, edge.w);
     }
     int flow = dinic.MaxFlow(problem.source, problem.sink);
-    return json{{"max_flow", flow}};
+    ordered_json out;
+    out["max_flow"] = flow;
+    return out;
 }
 
 }  // namespace
@@ -216,35 +289,42 @@ int main(int argc, char** argv) {
 
         io::InputSpec spec = io::ParseJsonFile(input_path);
 
-        json output;
+        ordered_json output;
         output["mode"] = spec.mode;
-        output["results"] = json::array();
+        output["results"] = ordered_json::array();
 
         if (spec.mode == "edge_list") {
             const auto& problem = std::get<io::EdgeListProblem>(spec.problem);
             AdjListGraph graph = EdgeListToGraph(problem);
             for (const auto& query : spec.queries) {
-                output["results"].push_back({
-                    {"query", query.raw},
-                    {"result", RunEdgeListQuery(graph, problem, query)}
-                });
+                ordered_json entry;
+                entry["query"] = QueryToJson(query);
+                entry["result"] = RunEdgeListQuery(graph, problem, query);
+                output["results"].push_back(entry);
             }
         } else if (spec.mode == "grid") {
-            const auto& problem = std::get<io::GridProblem>(spec.problem);
-            GridGraph grid = GridToGraph(problem);
+            const auto& search_problem = std::get<io::SearchProblem>(spec.problem);
             for (const auto& query : spec.queries) {
-                output["results"].push_back({
-                    {"query", query.raw},
-                    {"result", RunGridQuery(grid, problem, query)}
-                });
+                ordered_json entry;
+                entry["query"] = QueryToJson(query);
+                entry["result"] = RunSearchQuery(search_problem, query);
+                output["results"].push_back(entry);
             }
         } else if (spec.mode == "flow") {
             const auto& problem = std::get<io::FlowProblem>(spec.problem);
             for (const auto& query : spec.queries) {
-                output["results"].push_back({
-                    {"query", query.raw},
-                    {"result", RunFlowQuery(problem, query)}
-                });
+                ordered_json entry;
+                entry["query"] = QueryToJson(query);
+                entry["result"] = RunFlowQuery(problem, query);
+                output["results"].push_back(entry);
+            }
+        } else if (spec.mode == "search") {
+            const auto& problem = std::get<io::SearchProblem>(spec.problem);
+            for (const auto& query : spec.queries) {
+                ordered_json entry;
+                entry["query"] = QueryToJson(query);
+                entry["result"] = RunSearchQuery(problem, query);
+                output["results"].push_back(entry);
             }
         } else {
             throw std::runtime_error("Unsupported mode: " + spec.mode);
@@ -252,8 +332,12 @@ int main(int argc, char** argv) {
 
         auto finished = std::chrono::steady_clock::now();
         std::chrono::duration<double, std::milli> elapsed = finished - started;
-        output["stats"] = {{"time_ms", elapsed.count()}};
-        output["meta"] = {{"solver_version", "v1.0"}};
+        ordered_json stats;
+        stats["time_ms"] = elapsed.count();
+        output["stats"] = stats;
+        ordered_json meta;
+        meta["solver_version"] = "v1.0";
+        output["meta"] = meta;
 
         io::WriteJsonFile(output, output_path);
         return 0;

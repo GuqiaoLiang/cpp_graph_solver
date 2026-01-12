@@ -1,0 +1,29 @@
+{
+  "mode": "search",
+  "results": [
+    {
+      "query": {
+        "type": "shortest_path",
+        "method": "bfs"
+      },
+      "result": {
+        "distance": 6,
+        "path_to_target": [
+          [4, 0],
+          [4, 1],
+          [4, 2],
+          [3, 2],
+          [3, 3],
+          [3, 4],
+          [2, 4]
+        ]
+      }
+    }
+  ],
+  "stats": {
+    "time_ms": 0.317278
+  },
+  "meta": {
+    "solver_version": "v1.0"
+  }
+}
